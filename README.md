@@ -12,7 +12,7 @@ or add to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  dedent: ^1.0.1
+  dedent: ^1.0.0
 ```
 
 ## Usage
