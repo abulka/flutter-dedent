@@ -5,25 +5,25 @@ library dedent;
 
 import 'package:quiver/iterables.dart';
 
+/// Remove any common leading whitespace from every line in `text`.
+/// This can be used to make triple-quoted strings line up with the left
+/// edge of the display, while still presenting them in the source code
+/// in indented form.
+/// Note that tabs and spaces are both treated as whitespace, but they
+/// are not equal: the lines "  hello" and "\\thello" are
+/// considered to have no common leading whitespace.
+/// Entirely blank lines are normalized to a newline character.
 String dedent(String text) {
-  /// Remove any common leading whitespace from every line in `text`.
-  /// This can be used to make triple-quoted strings line up with the left
-  /// edge of the display, while still presenting them in the source code
-  /// in indented form.
-  /// Note that tabs and spaces are both treated as whitespace, but they
-  /// are not equal: the lines "  hello" and "\\thello" are
-  /// considered to have no common leading whitespace.
-  /// Entirely blank lines are normalized to a newline character.
 
-  var _whitespace_only_re = new RegExp(r"^[ \t]+$", multiLine: true);
-  var _leading_whitespace_re =
+  var _whitespaceOnlyRe = new RegExp(r"^[ \t]+$", multiLine: true);
+  var _leadingWhitespaceRe =
       new RegExp(r"(^[ \t]*)(?:[^ \t\n])", multiLine: true);
 
   // Look for the longest leading string of spaces and tabs common to
   // all lines.
   String margin;
-  text = text.replaceAll(_whitespace_only_re, '');
-  var indents = _leading_whitespace_re.allMatches(text);
+  text = text.replaceAll(_whitespaceOnlyRe, '');
+  var indents = _leadingWhitespaceRe.allMatches(text);
   indents.forEach((_indent) {
     String indent = text.substring(_indent.start, _indent.end - 1);
     if (margin == null)
@@ -56,7 +56,7 @@ String dedent(String text) {
   }); // forEach
 
   // sanity check (testing/debugging only)
-  var debug = true;
+  var debug = false;
   if (debug && margin != '')
     text.split("\n").forEach((line) {
       assert(line == "" || line.startsWith(margin),
