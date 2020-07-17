@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - July 2020 Initial Release.
 
-* TODO: Describe initial release.
+* Initial Release, tests ported from Python all pass.
