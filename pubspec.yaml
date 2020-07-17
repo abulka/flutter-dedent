@@ -1,6 +1,6 @@
 name: dedent
 description: Remove any common leading whitespace from every line in text.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/abulka/flutter-dedent
 
 environment:
