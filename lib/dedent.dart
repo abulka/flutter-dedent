@@ -14,24 +14,27 @@ import 'package:quiver/iterables.dart';
 /// considered to have no common leading whitespace.
 /// Entirely blank lines are normalized to a newline character.
 String dedent(String text) {
-
   var _whitespaceOnlyRe = new RegExp(r"^[ \t]+$", multiLine: true);
   var _leadingWhitespaceRe =
       new RegExp(r"(^[ \t]*)(?:[^ \t\n])", multiLine: true);
 
-  // Look for the longest leading string of spaces and tabs common to
-  // all lines.
-  String margin;
   text = text.replaceAll(_whitespaceOnlyRe, '');
   var indents = _leadingWhitespaceRe.allMatches(text);
-  indents.forEach((_indent) {
+
+  if (indents.isEmpty) {
+    return text;
+  }
+
+  // Look for the longest leading string of spaces and tabs common to
+  // all lines.
+  String margin = text.substring(indents.first.start, indents.first.end - 1);
+
+  indents.skip(1).forEach((_indent) {
     String indent = text.substring(_indent.start, _indent.end - 1);
-    if (margin == null)
-      margin = indent;
 
     // Current line more deeply indented than previous winner:
     // no change (previous winner is still on top).
-    else if (indent.startsWith(margin)) {
+    if (indent.startsWith(margin)) {
     }
 
     // Current line consistent with and no deeper than previous winner:
@@ -68,5 +71,6 @@ String dedent(String text) {
         multiLine: true); // python r"(?m)^" illegal in js regex so leave it out
     text = text.replaceAll(r, '');
   }
+
   return text;
 }
