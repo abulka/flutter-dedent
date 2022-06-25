@@ -14,14 +14,13 @@ import 'package:quiver/iterables.dart';
 /// considered to have no common leading whitespace.
 /// Entirely blank lines are normalized to a newline character.
 String dedent(String text) {
-
   var _whitespaceOnlyRe = new RegExp(r"^[ \t]+$", multiLine: true);
   var _leadingWhitespaceRe =
       new RegExp(r"(^[ \t]*)(?:[^ \t\n])", multiLine: true);
 
   // Look for the longest leading string of spaces and tabs common to
   // all lines.
-  String margin;
+  String? margin;
   text = text.replaceAll(_whitespaceOnlyRe, '');
   var indents = _leadingWhitespaceRe.allMatches(text);
   indents.forEach((_indent) {
@@ -31,24 +30,24 @@ String dedent(String text) {
 
     // Current line more deeply indented than previous winner:
     // no change (previous winner is still on top).
-    else if (indent.startsWith(margin)) {
+    else if (indent.startsWith(margin!)) {
     }
 
     // Current line consistent with and no deeper than previous winner:
     // it's the new winner.
-    else if (margin.startsWith(indent))
+    else if (margin!.startsWith(indent))
       margin = indent;
 
     // Find the largest common whitespace between current line and previous
     // winner.
     else {
-      var it = zip([margin.split(''), indent.split('')]).toList();
+      var it = zip([margin!.split(''), indent.split('')]).toList();
       for (var i = 0; i < it.length; i++) {
         if (it[0] != it[1]) {
           var till = (i == 0) // compensate for lack of [:-1] Python syntax
-              ? margin.length - 1
+              ? margin!.length - 1
               : i - 1;
-          margin = margin.substring(0, till);
+          margin = margin!.substring(0, till);
           break;
         }
       }
@@ -56,15 +55,15 @@ String dedent(String text) {
   }); // forEach
 
   // sanity check (testing/debugging only)
-  var debug = false;
-  if (debug && margin != '')
+  var debug = true;
+  if (debug && margin != null && margin != '')
     text.split("\n").forEach((line) {
-      assert(line == "" || line.startsWith(margin),
+      assert(line == "" || line.startsWith(margin!),
           "line = $line, margin = $margin");
     });
 
-  if (margin != "") {
-    var r = new RegExp(r"^" + margin,
+  if (margin != null && margin != "") {
+    var r = new RegExp(r"^" + margin!,
         multiLine: true); // python r"(?m)^" illegal in js regex so leave it out
     text = text.replaceAll(r, '');
   }

@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:dedent/dedent.dart';
 
 // EXTRACT FROM OFFICIAL PYTHON TEXTWRAP.DEDENT TEST SUITE
@@ -137,5 +137,4 @@ def foo():
     _expect = " \thello there\n  \thow are you?\n\tI'm fine, thanks";
     expect(_expect, equals(dedent(text)));
   });
-
 }
