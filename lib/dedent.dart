@@ -22,25 +22,26 @@ String dedent(String text) {
   String? margin;
   text = text.replaceAll(_whitespaceOnlyRe, '');
   var indents = _leadingWhitespaceRe.allMatches(text);
-  indents.forEach((_indent) {
+
+  for (var _indent in indents) {
     String indent = text.substring(_indent.start, _indent.end - 1);
     if (margin == null)
       margin = indent;
 
     // Current line more deeply indented than previous winner:
     // no change (previous winner is still on top).
-    else if (indent.startsWith(margin!)) {
+    else if (indent.startsWith(margin)) {
     }
 
     // Current line consistent with and no deeper than previous winner:
     // it's the new winner.
-    else if (margin!.startsWith(indent))
+    else if (margin.startsWith(indent))
       margin = indent;
 
     // Find the largest common whitespace between current line and previous
     // winner.
     else {
-      var it = zip([margin!.split(''), indent.split('')]).toList();
+      var it = zip([margin.split(''), indent.split('')]).toList();
       for (var i = 0; i < it.length; i++) {
         if (it[0] != it[1]) {
           var till = (i == 0) // compensate for lack of [:-1] Python syntax
@@ -51,7 +52,7 @@ String dedent(String text) {
         }
       }
     } // else
-  }); // forEach
+  }
 
   // sanity check (testing/debugging only)
   var debug = false;
@@ -62,7 +63,7 @@ String dedent(String text) {
     });
 
   if (margin != null && margin != "") {
-    var r = new RegExp(r"^" + margin!,
+    var r = new RegExp(r"^" + margin,
         multiLine: true); // python r"(?m)^" illegal in js regex so leave it out
     text = text.replaceAll(r, '');
   }
