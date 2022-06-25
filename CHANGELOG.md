@@ -1,3 +1,7 @@
+## [1.0.0] - June 25th 2022.
+
+* Null Safety support.
+
 ## [0.0.2] - July 17th 2020.
 
 * Updated README and documentation.
