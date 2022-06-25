@@ -12,7 +12,10 @@ dependencies:
 ```
 
 to your `pubspec.yaml`
-then run the usual `flutter pub get` or just `pub get` for a pure dart project.
+then run the usual `flutter pub get` or just `dart pub get` for a pure dart project.
+
+> Actually now that `dedent` has been update to support null safety in version `1.0.0` 
+you should make the dependency `dedent: ^1.0.0`.  If you want the older version without null safety, you can use `dedent: ^0.0.2`.
 
 ## Usage
 
@@ -69,7 +72,7 @@ Python [textwrap.dedent](https://docs.python.org/3/library/textwrap.html) algori
 Tests are also ported from Python.
 
 ```
-flutter test
+dart test
 ```
 
 ## Contributing

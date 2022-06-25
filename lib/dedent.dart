@@ -1,7 +1,6 @@
+/// Remove any common leading whitespace from every line in `text`.
+/// A translation of the [Python textwrap.dedent algorithm](https://github.com/python/cpython/blob/eb97b9211e7c99841d6cae8c63893b3525d5a401/Lib/textwrap.py)
 library dedent;
-
-// Translation of Python textwrap.dedent algorithm
-// https://github.com/python/cpython/blob/eb97b9211e7c99841d6cae8c63893b3525d5a401/Lib/textwrap.py
 
 import 'package:quiver/iterables.dart';
 
