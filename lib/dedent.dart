@@ -25,8 +25,9 @@ String dedent(String text) {
 
   for (var _indent in indents) {
     String indent = text.substring(_indent.start, _indent.end - 1);
-    if (margin == null)
+    if (margin == null) {
       margin = indent;
+    }
 
     // Current line more deeply indented than previous winner:
     // no change (previous winner is still on top).
@@ -35,8 +36,9 @@ String dedent(String text) {
 
     // Current line consistent with and no deeper than previous winner:
     // it's the new winner.
-    else if (margin.startsWith(indent))
+    else if (margin.startsWith(indent)) {
       margin = indent;
+    }
 
     // Find the largest common whitespace between current line and previous
     // winner.
@@ -56,11 +58,12 @@ String dedent(String text) {
 
   // sanity check (testing/debugging only)
   var debug = false;
-  if (debug && margin != null && margin != '')
-    text.split("\n").forEach((line) {
-      assert(line == "" || line.startsWith(margin!),
-          "line = $line, margin = $margin");
-    });
+  if (debug && margin != null && margin != '') {
+    for (var line in text.split('\n')) {
+      assert(line == "" || line.startsWith(margin),
+          "Sanity check failed: line = $line, margin = $margin");
+    }
+  }
 
   if (margin != null && margin != "") {
     var r = new RegExp(r"^" + margin,
