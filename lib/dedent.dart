@@ -55,7 +55,7 @@ String dedent(String text) {
   }); // forEach
 
   // sanity check (testing/debugging only)
-  var debug = true;
+  var debug = false;
   if (debug && margin != null && margin != '')
     text.split("\n").forEach((line) {
       assert(line == "" || line.startsWith(margin!),
