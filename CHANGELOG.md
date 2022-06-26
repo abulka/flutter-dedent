@@ -1,3 +1,7 @@
+## [1.0.2] - June 26th 2022.
+
+* Refactored code - followed `lints` static analysis code suggestions. Changed license to MIT.
+
 ## [1.0.1] - June 25th 2022.
 
 * Refactored Null Safety support using the useful Dart principle of “After null checks, nullable variables are promoted to be non-nullable”.
